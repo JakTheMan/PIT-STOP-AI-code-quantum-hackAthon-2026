@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PIT STOP AI — RACE THROUGH ANY WEBPAGE</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
+
+  :root {
+    --red: #E8001D;
+    --red-dark: #9B0013;
+    --red-glow: #FF1E3C;
+    --carbon: #0A0A0A;
+    --dark: #111111;
+    --panel: #161616;
+    --panel2: #1C1C1C;
+    --border: #2A2A2A;
+    --silver: #C0C0C0;
+    --gold: #FFD700;
+    --white: #F5F5F5;
+    --muted: #666;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--carbon);
+    color: var(--white);
+    font-family: 'Rajdhani', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+  /* Custom Gas Nozzle Cursor */
+  body {
+    /* This uses a custom encoded SVG of a gas nozzle */
+  cursor: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-5.0 -10.0 110.0 135.0' width='56' height='56'%3E%3Cg fill='%23E8001D' stroke='white' stroke-width='2'%3E%3Cpath d='m15.691 35.539c-0.13281-0.26172-0.40234-0.42578-0.69531-0.42578-0.29297 0-0.5625 0.16406-0.69531 0.42578l-4.2227 8.2734c-0.88281 1.7266-0.80469 3.7383 0.20703 5.3906 1.0117 1.6523 2.7734 2.6406 4.7109 2.6406s3.6953-0.98438 4.707-2.6367c1.0117-1.6523 1.0898-3.668 0.20703-5.3906zm2.6797 12.852c-0.72656 1.1836-1.9883 1.8906-3.375 1.8906-1.3906 0-2.6523-0.70703-3.3789-1.8906-0.72266-1.1836-0.78125-2.6289-0.14844-3.8672l3.5273-6.9102 3.5234 6.9102c0.63281 1.2344 0.57812 2.6797-0.14844 3.8672z'/%3E%3Cpath d='m45.973 48.188c-0.30469-0.30469-0.80078-0.30469-1.1055 0l-9.6602 9.6641c-0.30469 0.30469-0.30469 0.80078 0 1.1055l14.082 14.082c1.0508 1.0508 2.4453 1.6289 3.9297 1.6289s2.8789-0.57812 3.9297-1.6289l6.2891-6.2852c0.14844-0.14844 0.23047-0.34375 0.23047-0.55078s-0.082031-0.40625-0.23047-0.55078zm-0.55469 1.6602 5.5703 5.5703 1.5273 4.5195 0.61328 6.375-1.6016 0.25-0.15625-6.6523c-0.003906-0.16797-0.0625-0.32812-0.16406-0.46094l-6.7227-8.668zm10.621 22.086c-0.75391 0.75391-1.7578 1.1719-2.8242 1.1719s-2.0703-0.41406-2.8242-1.1719l-13.527-13.531 6.5117-6.5117 6.4453 8.3086 0.17188 7.2852c0.003906 0.22656 0.10937 0.4375 0.28125 0.58203 0.14062 0.11719 0.32031 0.17969 0.5 0.17969 0.039062 0 0.082031-0.003906 0.12109-0.007813l3.2109-0.5c0.41016-0.0625 0.69922-0.43359 0.65625-0.84766l-0.69531-7.1953c-0.003906-0.058593-0.019531-0.11719-0.039062-0.17578l-0.54297-1.6133 8.293 8.293z'/%3E%3Cpath d='m90.305 75.133-10.801-10.801 0.92188-0.92188c0.30469-0.30469 0.30469-0.80078 0-1.1055l-3.1953-3.1992-5.9961-5.9961s0-0.003906-0.003906-0.003906l-11.785-11.777-11.836-11.836c-0.007813-0.007813-0.007813-0.015626-0.015625-0.023438l-12.594-12.594c-2.5312-2.5312-5.9531-3.875-9.5547-3.7109l-10.789 0.47656c-0.41797 0.019531-0.74609 0.36328-0.74609 0.78125l-0.007812 7.5234c0 0.21094 0.085937 0.41797 0.24219 0.56641 0.15625 0.14844 0.35938 0.23047 0.57422 0.21484l10.969-0.48437 0.17578-0.003907c1.0664 0 2.0703 0.41406 2.8242 1.1719l11.895 11.895-9.1836 9.1836c-2.4023 2.4023-3.7266 5.5977-3.7266 8.9961s1.3242 6.5938 3.7266 8.9961l14.477 14.477c1.9492 1.9531 4.5469 3.0273 7.3047 3.0273 2.7617 0 5.3555-1.0742 7.3086-3.0273l7.9258-7.9258 2.6445 2.6445c0.14844 0.14844 0.34375 0.23047 0.55078 0.23047s0.40625-0.082031 0.55078-0.23047l0.92188-0.92188 15.863 15.863c0.14844 0.14844 0.34766 0.23047 0.55078 0.23047 0.097656 0 0.19531-0.019531 0.28906-0.054687 0.28906-0.11719 0.48438-0.39453 0.49219-0.70703l0.25-10.379c0.007812-0.21484-0.074219-0.42188-0.22266-0.57422zm-31.781-32.516 11.047 11.047-3.1328 3.1367-16.57-16.574 3.1328-3.1328zm-28.73-20.312c-1.0508-1.0508-2.4453-1.6289-3.9297-1.6289-0.082031 0-0.16016 0-0.24219 0.003907l-10.152 0.44922 0.007812-5.9609 10.043-0.44531c3.1562-0.13281 6.1562 1.0352 8.3789 3.2539l12.004 12.004-4.2148 4.2148zm29.59 53.547c-1.6562 1.6562-3.8594 2.5703-6.2031 2.5703s-4.543-0.91406-6.2031-2.5703l-14.473-14.477c-2.1094-2.1094-3.2695-4.9102-3.2695-7.8906s1.1602-5.7812 3.2695-7.8906l9.543-9.543c0.085937-0.039062 0.16406-0.085937 0.23047-0.15625l4.7617-4.7656 4.8555 4.8555-3.6875 3.6875c-0.30469 0.30469-0.30469 0.80078 0 1.1055l17.676 17.676c0.14844 0.14844 0.34375 0.23047 0.55078 0.23047 0.20703 0 0.40625-0.082032 0.55078-0.23047l3.6875-3.6875 4.8945 4.8945-7.7109 7.7109v0.003906zm12.227-5.832-2.0938-2.0938 7.1562-7.1562 2.0938 2.0938-0.91797 0.91797s-0.003906 0-0.003906 0.003906l-3.625 3.6289zm17.152 14.207-14.574-14.578 4.2109-4.2109 10.562 10.562z'/%3E%3C/g%3E%3C/svg%3E") 0 0, auto;  }
+
+  /* When the mouse is actually HELD DOWN (clicked) */
+  body:active {
+cursor: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MDYgMTAzIiB3aWR0aD0iNTgiPgogIDxnIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICA8cGF0aCBmaWxsPSIjRkY0NTAwIiBkPSJNMzQgODEuNWwyNi41LTM0IDgxLjUtOC41IDEyNS44IDMuN0wzOTcgOThsLTMyOS0uMnoiLz4KICAgIDxwYXRoIGZpbGw9IiNGRkRBMDAiIGQ9Ik05OCAzOWwyNC4zIDM2IDMyLjYtMi44LTkuNS0zOC4yeiIvPgogICAgPGNpcmNsZSBjeD0iMzQiIGN5PSI2OC42IiByPSIzNC40Ii8+CiAgICA8Y2lyY2xlIGN4PSIzMTguNSIgY3k9IjY4LjYiIHI9IjM0LjQiLz4KICAgIDxwYXRoIGZpbGw9IiNGRkYiIGQ9Ik0zNCA0OS44YzEwLjQgMCAxOC44IDguNCAxOC44IDE4LjhzLTguNCAxOC44LTE4LjggMTguOHMtMTguOC04LjQtMTguOC0xOC44IDguNC0xOC44IDE4LjgtMTguOHpNMzE4LjUgNDkuOGMxMC40IDAgMTguOCA4LjQgMTguOCAxOC44cy04LjQgMTguOC0xOC44IDE4LjhzLTE4LjgtOC40LTE4LjgtMTguOCA4LjQtMTguOCAxOC44LTE4Ljh6Ii8+CiAgICA8cGF0aCBkPSJNMjA2IDQyLjdoLTMuOGwtMi41LTguOCAxMC42IDguNHoiLz4KICAgIDxwYXRoIGZpbGw9IiMyMzFGMjAiIGQ9Ik0yMTAuOSAyNS44YzAgNy4xLTUuOCAxMi45LTEyLjkgMTIuOXMtMTIuOS01LjgtMTIuOS0xMi45IDUuOC0xMi45IDEyLjktMTIuOSAxMi45IDUuOCAxMi45IDEyLjl6Ii8+CiAgPC9nPgo8L3N2Zz4=") 10 5, auto !important;  }
+
+  /* Hover state: Same car, slightly larger for feedback */
+  button:hover, .tab:hover, .toc-item:hover, .quick-btn:hover {
+cursor: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MDYgMTAzIiB3aWR0aD0iNTgiPgogIDxnIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICA8cGF0aCBmaWxsPSIjRkY0NTAwIiBkPSJNMzQgODEuNWwyNi41LTM0IDgxLjUtOC41IDEyNS44IDMuN0wzOTcgOThsLTMyOS0uMnoiLz4KICAgIDxwYXRoIGZpbGw9IiNGRkRBMDAiIGQ9Ik05OCAzOWwyNC4zIDM2IDMyLjYtMi44LTkuNS0zOC4yeiIvPgogICAgPGNpcmNsZSBjeD0iMzQiIGN5PSI2OC42IiByPSIzNC40Ii8+CiAgICA8Y2lyY2xlIGN4PSIzMTguNSIgY3k9IjY4LjYiIHI9IjM0LjQiLz4KICAgIDxwYXRoIGZpbGw9IiNGRkYiIGQ9Ik0zNCA0OS44YzEwLjQgMCAxOC44IDguNCAxOC44IDE4LjhzLTguNCAxOC44LTE4LjggMTguOHMtMTguOC04LjQtMTguOC0xOC44IDguNC0xOC44IDE4LjgtMTguOHpNMzE4LjUgNDkuOGMxMC40IDAgMTguOCA4LjQgMTguOCAxOC44cy04LjQgMTguOC0xOC44IDE4LjhzLTE4LjgtOC40LTE4LjgtMTguOCA4LjQtMTguOCAxOC44LTE4Ljh6Ii8+CiAgICA8cGF0aCBkPSJNMjA2IDQyLjdoLTMuOGwtMi41LTguOCAxMC42IDguNHoiLz4KICAgIDxwYXRoIGZpbGw9IiMyMzFGMjAiIGQ9Ik0yMTAuOSAyNS44YzAgNy4xLTUuOCAxMi45LTEyLjkgMTIuOXMtMTIuOS01LjgtMTIuOS0xMi45IDUuOC0xMi45IDEyLjktMTIuOSAxMi45IDUuOCAxMi45IDEyLjl6Ii8+CiAgPC9nPgo8L3N2Zz4=") 10 5, auto !important;  }
+
+  /* When hovering over clickable elements, the nozzle turns GOLD */
+  /* Brighter, Glowing Nozzle on Hover */
+  button:hover, 
+  .tab:hover, 
+  .toc-item:hover, 
+  .quick-btn:hover,
+  #sendBtn:hover {
+  /* 1. We change the fill to %23FFF000 (Brighter Yellow) */
+  /* 2. Added a drop-shadow filter to create the glow effect */
+  filter: drop-shadow(0 0 2px #FFF) drop-shadow(0 0 16px #FFD700);
+  
+  cursor: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-5.0 -10.0 110.0 135.0' width='56' height='56'%3E%3Cg fill='%23FFF000' stroke='white' stroke-width='2'%3E%3Cpath d='m15.691 35.539c-0.13281-0.26172-0.40234-0.42578-0.69531-0.42578-0.29297 0-0.5625 0.16406-0.69531 0.42578l-4.2227 8.2734c-0.88281 1.7266-0.80469 3.7383 0.20703 5.3906 1.0117 1.6523 2.7734 2.6406 4.7109 2.6406s3.6953-0.98438 4.707-2.6367c1.0117-1.6523 1.0898-3.668 0.20703-5.3906zm2.6797 12.852c-0.72656 1.1836-1.9883 1.8906-3.375 1.8906-1.3906 0-2.6523-0.70703-3.3789-1.8906-0.72266-1.1836-0.78125-2.6289-0.14844-3.8672l3.5273-6.9102 3.5234 6.9102c0.63281 1.2344 0.57812 2.6797-0.14844 3.8672z'/%3E%3Cpath d='m45.973 48.188c-0.30469-0.30469-0.80078-0.30469-1.1055 0l-9.6602 9.6641c-0.30469 0.30469-0.30469 0.80078 0 1.1055l14.082 14.082c1.0508 1.0508 2.4453 1.6289 3.9297 1.6289s2.8789-0.57812 3.9297-1.6289l6.2891-6.2852c0.14844-0.14844 0.23047-0.34375 0.23047-0.55078s-0.082031-0.40625-0.23047-0.55078zm-0.55469 1.6602 5.5703 5.5703 1.5273 4.5195 0.61328 6.375-1.6016 0.25-0.15625-6.6523c-0.003906-0.16797-0.0625-0.32812-0.16406-0.46094l-6.7227-8.668zm10.621 22.086c-0.75391 0.75391-1.7578 1.1719-2.8242 1.1719s-2.0703-0.41406-2.8242-1.1719l-13.527-13.531 6.5117-6.5117 6.4453 8.3086 0.17188 7.2852c0.003906 0.22656 0.10937 0.4375 0.28125 0.58203 0.14062 0.11719 0.32031 0.17969 0.5 0.17969 0.039062 0 0.082031-0.003906 0.12109-0.007813l3.2109-0.5c0.41016-0.0625 0.69922-0.43359 0.65625-0.84766l-0.69531-7.1953c-0.003906-0.058593-0.019531-0.11719-0.039062-0.17578l-0.54297-1.6133 8.293 8.293z'/%3E%3Cpath d='m90.305 75.133-10.801-10.801 0.92188-0.92188c0.30469-0.30469 0.30469-0.80078 0-1.1055l-3.1953-3.1992-5.9961-5.9961s0-0.003906-0.003906-0.003906l-11.785-11.777-11.836-11.836c-0.007813-0.007813-0.007813-0.015626-0.015625-0.023438l-12.594-12.594c-2.5312-2.5312-5.9531-3.875-9.5547-3.7109l-10.789 0.47656c-0.41797 0.019531-0.74609 0.36328-0.74609 0.78125l-0.007812 7.5234c0 0.21094 0.085937 0.41797 0.24219 0.56641 0.15625 0.14844 0.35938 0.23047 0.57422 0.21484l10.969-0.48437 0.17578-0.003907c1.0664 0 2.0703 0.41406 2.8242 1.1719l11.895 11.895-9.1836 9.1836c-2.4023 2.4023-3.7266 5.5977-3.7266 8.9961s1.3242 6.5938 3.7266 8.9961l14.477 14.477c1.9492 1.9531 4.5469 3.0273 7.3047 3.0273 2.7617 0 5.3555-1.0742 7.3086-3.0273l7.9258-7.9258 2.6445 2.6445c0.14844 0.14844 0.34375 0.23047 0.55078 0.23047s0.40625-0.082031 0.55078-0.23047l0.92188-0.92188 15.863 15.863c0.14844 0.14844 0.34766 0.23047 0.55078 0.23047 0.097656 0 0.19531-0.019531 0.28906-0.054687 0.28906-1.11719 0.48438-0.39453 0.49219-0.70703l0.25-10.379c0.007812-0.21484-0.074219-0.42188-0.22266-0.57422zm-31.781-32.516 11.047 11.047-3.1328 3.1367-16.57-16.574 3.1328-3.1328zm-28.73-20.312c-1.0508-1.0508-2.4453-1.6289-3.9297-1.6289-0.082031 0-0.16016 0-0.24219 0.003907l-10.152 0.44922 0.007812-5.9609 10.043-0.44531c3.1562-0.13281 6.1562 1.0352 8.3789 3.2539l12.004 12.004-4.2148 4.2148zm29.59 53.547c-1.6562 1.6562-3.8594 2.5703-6.2031 2.5703s-4.543-0.91406-6.2031-2.5703l-14.473-14.477c-2.1094-2.1094-3.2695-4.9102-3.2695-7.8906s1.1602-5.7812 3.2695-7.8906l9.543-9.543c0.085937-0.039062 0.16406-0.085937 0.23047-0.15625l4.7617-4.7656 4.8555 4.8555-3.6875 3.6875c-0.30469 0.30469-0.30469 0.80078 0 1.1055l17.676 17.676c0.14844 0.14844 0.34375 0.23047 0.55078 0.23047 0.20703 0 0.40625-0.082032 0.55078-0.23047l3.6875-3.6875 4.8945 4.8945-7.7109 7.7109v0.003906zm12.227-5.832-2.0938-2.0938 7.1562-7.1562 2.0938 2.0938-0.91797 0.91797s-0.003906 0-0.003906 0.003906l-3.625 3.6289zm17.152 14.207-14.574-14.578 4.2109-4.2109 10.562 10.562z'/%3E%3C/g%3E%3C/svg%3E") 5 5, auto;
+}
+
+
+  /* Ensure buttons and inputs still show the pointer/text cursor so they feel functional */
+  button, .tab, .toc-item, .fc-item, .quick-btn {
+    cursor: pointer;
+  }
+
+  input, textarea {
+    cursor: text;
+  }
+  /* === TIRE CORNERS === */
+  .tire-corner { position: fixed; width: 120px; height: 120px; z-index: 0; pointer-events: none; }
+  .tire-corner svg { width: 100%; height: 100%; }
+  .tire-tl { top: 0; left: 0; }
+  .tire-tr { top: 0; right: 0; transform: scaleX(-1); }
+  .tire-bl { bottom: 0; left: 0; transform: scaleY(-1); }
+  .tire-br { bottom: 0; right: 0; transform: scale(-1); }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 2px; height: 100%;
+    background: repeating-linear-gradient(to bottom, var(--red) 0, var(--red) 20px, transparent 20px, transparent 40px);
+    opacity: 0.08; z-index: 0;
+  }
+
+  /* === HEADER === */
+  header {
+    position: relative; z-index: 10;
+    padding: 28px 40px 20px;
+    border-bottom: 2px solid var(--red);
+    background: linear-gradient(180deg, rgba(232,0,29,0.12) 0%, transparent 100%);
+    display: flex; align-items: center; gap: 20px;
+  }
+  .logo-badge {
+    background: var(--red); color: #fff;
+    font-family: 'Orbitron', monospace; font-weight: 900; font-size: 11px;
+    letter-spacing: 3px; padding: 6px 10px;
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 100%, 8px 100%);
+    white-space: nowrap;
+  }
+  .header-title {
+    font-family: 'Orbitron', monospace; font-size: clamp(18px, 3vw, 28px);
+    font-weight: 900; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--white); text-shadow: 0 0 30px rgba(232,0,29,0.5);
+  }
+  .header-title span { color: var(--red); }
+  .header-sub { font-size: 13px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-top: 2px; }
+  .lap-counter { margin-left: auto; text-align: right; font-family: 'Orbitron', monospace; }
+  .lap-label { font-size: 9px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; }
+  .lap-num { font-size: 28px; font-weight: 900; color: var(--red); line-height: 1; }
+
+  /* === MAIN === */
+  main {
+    position: relative; z-index: 5;
+    max-width: 1100px; margin: 0 auto;
+    padding: 32px 24px 60px;
+    display: flex; flex-direction: column; gap: 24px;
+  }
+
+  /* === INPUT PANEL === */
+  .pit-lane {
+    background: var(--panel); border: 1px solid var(--border); border-top: 3px solid var(--red);
+    padding: 28px 32px;
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  }
+  .section-label {
+    font-family: 'Orbitron', monospace; font-size: 10px; letter-spacing: 4px;
+    color: var(--red); text-transform: uppercase; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .api-row { display: flex; gap: 12px; margin-bottom: 16px; align-items: center; }
+  .api-label { font-family: 'Orbitron', monospace; font-size: 10px; letter-spacing: 2px; color: var(--silver); white-space: nowrap; }
+  .api-input {
+    flex: 1; background: var(--dark); border: 1px solid var(--border); border-left: 3px solid var(--gold);
+    color: var(--gold); font-family: 'JetBrains Mono', monospace; font-size: 13px; padding: 10px 16px; outline: none;
+  }
+  .api-input::placeholder { color: #555; }
+
+  .url-row { display: flex; gap: 12px; align-items: stretch; }
+  .url-input {
+    flex: 1; background: var(--dark); border: 1px solid var(--border); border-left: 3px solid var(--red);
+    color: var(--white); font-family: 'JetBrains Mono', monospace; font-size: 14px; padding: 14px 18px; outline: none;
+    transition: box-shadow 0.2s;
+  }
+  .url-input::placeholder { color: var(--muted); }
+  .url-input:focus { box-shadow: 0 0 0 2px rgba(232,0,29,0.15); }
+
+  .btn-launch {
+    background: var(--red); color: #fff; border: none;
+    font-family: 'Orbitron', monospace; font-weight: 700; font-size: 12px;
+    letter-spacing: 3px; padding: 14px 28px; cursor: pointer; text-transform: uppercase;
+    clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+    transition: background 0.2s; white-space: nowrap;
+  }
+  .btn-launch:hover { background: var(--red-glow); }
+  .btn-launch:disabled { background: #3a3a3a; color: #555; cursor: not-allowed; clip-path: none; }
+
+  .api-hint { margin-top: 12px; font-size: 12px; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+  .api-hint a { color: var(--red); text-decoration: none; }
+
+  /* === RACE ANIMATION === */
+  .race-overlay {
+    display: none; background: var(--panel); border: 1px solid var(--border); border-top: 3px solid var(--red);
+    padding: 40px 32px; text-align: center;
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  }
+  .race-overlay.active { display: block; }
+  .track-svg-wrap { position: relative; width: 100%; max-width: 500px; margin: 0 auto 24px; height: 80px; }
+  .track-line {
+    position: absolute; top: 50%; left: 0; right: 0; height: 4px;
+    background: repeating-linear-gradient(90deg, #333 0, #333 20px, var(--red) 20px, var(--red) 40px);
+    transform: translateY(-50%);
+  }
+  .f1-car {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-60%);
+  font-size: 36px;
+  animation: carRace 2.2s linear infinite;
+  filter: drop-shadow(0 0 10px var(--red));
+  }
+  @keyframes carRace {   0%   { left: calc(100% + 20px); }  /* start off-screen right */
+  100% { left: -60px; }     }
+  .race-status {
+    font-family: 'Orbitron', monospace; font-size: 13px; letter-spacing: 4px;
+    color: var(--red); text-transform: uppercase; animation: blink 1s ease-in-out infinite;
+  }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+  .race-url-display { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); margin-top: 8px; word-break: break-all; }
+
+  /* === RESULTS PANEL === */
+  .results-panel {
+    display: none; background: var(--panel); border: 1px solid var(--border); border-top: 3px solid var(--red);
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  }
+  .results-panel.active { display: block; }
+  .results-header { padding: 20px 32px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 16px; }
+  .source-badge {
+    background: rgba(232,0,29,0.15); border: 1px solid var(--red); color: var(--red);
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 4px 10px;
+    max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .results-tabs { display: flex; border-bottom: 1px solid var(--border); }
+  .tab {
+    font-family: 'Orbitron', monospace; font-size: 10px; letter-spacing: 2px;
+    padding: 14px 24px; cursor: pointer; color: var(--muted);
+    border-bottom: 2px solid transparent; text-transform: uppercase; transition: all 0.2s;
+    background: none; border-top: none; border-left: none; border-right: none;
+  }
+  .tab:hover { color: var(--white); }
+  .tab.active { color: var(--red); border-bottom-color: var(--red); background: rgba(232,0,29,0.05); }
+  .tab-content { display: none; padding: 28px 32px; }
+  .tab-content.active { display: block; }
+
+  .ai-content { font-size: 16px; line-height: 1.7; color: var(--white); }
+  .ai-content h3 { font-family: 'Orbitron', monospace; font-size: 12px; letter-spacing: 2px; color: var(--silver); text-transform: uppercase; margin: 14px 0 6px; }
+  .ai-content ul { padding-left: 20px; }
+  .ai-content li { margin-bottom: 6px; }
+  .ai-content strong { color: var(--red); }
+  .ai-content p { margin-bottom: 10px; }
+
+  /* TOC */
+  .toc-item {
+    display: flex; align-items: center; gap: 14px; padding: 12px 16px;
+    border: 1px solid var(--border); margin-bottom: 8px; cursor: pointer;
+    transition: all 0.2s; background: var(--dark);
+  }
+  .toc-item:hover { border-color: var(--red); background: rgba(232,0,29,0.06); transform: translateX(4px); }
+  .toc-num { font-family: 'Orbitron', monospace; font-size: 11px; color: var(--red); min-width: 28px; font-weight: 700; }
+  .toc-text { font-size: 15px; font-weight: 600; color: var(--white); }
+  .toc-arrow { margin-left: auto; color: var(--muted); font-size: 12px; }
+
+  /* ── FLASHCARDS — vertical list, click to reveal ── */
+  .flashcard-list { display: flex; flex-direction: column; gap: 14px; }
+
+  .fc-item { background: var(--dark); 
+    border: 1px solid var(--border); 
+    border-left: 4px solid var(--red); 
+    margin-bottom: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Adds space between Card, Front, and Back */ }
+
+  .fc-front {
+    display: flex; align-items: center; gap: 16px; padding: 16px 20px;
+    cursor: pointer; user-select: none; transition: background 0.2s;
+  }
+  .fc-front:hover { background: rgba(232,0,29,0.05); }
+
+  .fc-num { font-family: 'Orbitron', monospace; 
+    font-size: 12px; 
+    color: var(--red); /* Red Card Text */
+    font-weight: 900; 
+    letter-spacing: 2px; }
+    .fc-section {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .fc-label { 
+    font-family: 'Orbitron', monospace; 
+    font-size: 9px; 
+    letter-spacing: 2px; 
+    color: var(--gold); /* Yellow Labels */
+    text-transform: uppercase; 
+  }
+
+  .fc-info { 
+    font-size: 16px; 
+    font-weight: 500; 
+    color: var(--white); /* White Info Text */
+    line-height: 1.5; 
+  }
+
+  .fc-question { flex: 1; font-size: 16px; font-weight: 700; color: var(--white); line-height: 1.4; }
+
+  .fc-toggle {
+    background: var(--panel2); border: 1px solid var(--border); color: var(--muted);
+    font-family: 'Orbitron', monospace; font-size: 9px; letter-spacing: 2px;
+    padding: 7px 14px; cursor: pointer; white-space: nowrap; text-transform: uppercase; transition: all 0.2s;
+  }
+  .fc-toggle:hover { border-color: var(--red); color: var(--white); }
+  .fc-toggle.revealed { border-color: var(--gold); color: var(--gold); background: rgba(255,215,0,0.06); }
+
+  .fc-back {
+    display: none; padding: 14px 20px 16px 76px;
+    border-top: 1px solid var(--border); background: rgba(232,0,29,0.04);
+    font-size: 15px; color: var(--white); line-height: 1.6;
+  }
+  .fc-back.visible { display: block; }
+  .fc-answer-label { font-family: 'Orbitron', monospace; font-size: 8px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 6px; }
+
+  /* === CHAT === */
+  .chat-panel {
+    display: none; background: var(--panel); border: 1px solid var(--border); border-top: 3px solid var(--red);
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  }
+  .chat-panel.active { display: flex; flex-direction: column; }
+  .chat-header {
+    padding: 16px 32px; border-bottom: 1px solid var(--border);
+    font-family: 'Orbitron', monospace; font-size: 10px; letter-spacing: 4px;
+    color: var(--red); text-transform: uppercase; display: flex; align-items: center; gap: 12px;
+  }
+  .chat-indicator { width: 8px; height: 8px; background: var(--red); border-radius: 50%; animation: pulse 1.5s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(232,0,29,0.6); } 50% { box-shadow: 0 0 0 6px rgba(232,0,29,0); } }
+
+  .chat-messages {
+    flex: 1; max-height: 460px; overflow-y: auto;
+    padding: 20px 32px; display: flex; flex-direction: column; gap: 16px; scroll-behavior: smooth;
+  }
+  .chat-messages::-webkit-scrollbar { width: 4px; }
+  .chat-messages::-webkit-scrollbar-thumb { background: var(--red-dark); }
+
+  /* User message */
+  .msg-user-wrap { align-self: flex-end; max-width: 72%; }
+  .msg-user {
+    background: var(--red); color: #fff; padding: 12px 18px;
+    font-size: 15px; font-weight: 600; line-height: 1.5;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+  }
+
+  /* AI message — preview + reveal */
+  .msg-ai-wrap { align-self: flex-start; width: 100%; max-width: 90%; }
+  .msg-ai-header { font-family: 'Orbitron', monospace; font-size: 8px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
+
+  .msg-ai-preview {
+    background: var(--panel2); border-left: 3px solid var(--red);
+    padding: 12px 18px; display: flex; align-items: center; gap: 12px;
+  }
+  .msg-ai-preview-text { flex: 1; font-size: 14px; color: var(--silver); font-style: italic; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .btn-show-answer {
+    background: var(--red); color: #fff; border: none;
+    font-family: 'Orbitron', monospace; font-size: 9px; letter-spacing: 2px;
+    padding: 7px 14px; cursor: pointer; text-transform: uppercase; white-space: nowrap; transition: background 0.2s; flex-shrink: 0;
+  }
+  .btn-show-answer:hover { background: var(--red-glow); }
+
+  .msg-ai-full {
+    display: none; background: var(--panel2); border-left: 3px solid var(--red);
+    padding: 14px 18px; font-size: 15px; line-height: 1.65; color: var(--white);
+  }
+  .msg-ai-full.visible { display: block; }
+  .msg-ai-full strong { color: var(--red); }
+  .msg-ai-full ul { padding-left: 20px; }
+  .msg-ai-full li { margin-bottom: 5px; }
+
+  /* Typing dots */
+  .msg-typing {
+    display: flex; gap: 5px; align-items: center; padding: 14px 18px;
+    background: var(--panel2); border-left: 3px solid var(--red);
+    align-self: flex-start; max-width: 80px;
+  }
+  .typing-dot { width: 7px; height: 7px; background: var(--red); border-radius: 50%; animation: typingBounce 1.2s ease-in-out infinite; }
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes typingBounce { 0%, 100% { transform: translateY(0); opacity: 0.4; } 50% { transform: translateY(-5px); opacity: 1; } }
+
+  .quick-prompts { padding: 12px 32px; border-top: 1px solid var(--border); display: flex; gap: 8px; flex-wrap: wrap; }
+  .quick-btn {
+    background: var(--dark); border: 1px solid var(--border); color: var(--silver);
+    font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 12px;
+    padding: 6px 14px; cursor: pointer; letter-spacing: 1px; text-transform: uppercase; transition: all 0.2s;
+  }
+  .quick-btn:hover { border-color: var(--red); color: var(--white); background: rgba(232,0,29,0.08); }
+
+  .chat-input-row { display: flex; border-top: 1px solid var(--border); }
+  .chat-input {
+    flex: 1; background: var(--dark); border: none; border-right: 1px solid var(--border);
+    color: var(--white); font-family: 'Rajdhani', sans-serif; font-size: 15px; font-weight: 500;
+    padding: 16px 22px; outline: none; resize: none; height: 56px;
+  }
+  .chat-input::placeholder { color: var(--muted); }
+  .btn-send {
+    background: var(--red); color: #fff; border: none;
+    font-family: 'Orbitron', monospace; font-size: 10px; letter-spacing: 2px;
+    padding: 0 24px; cursor: pointer; text-transform: uppercase; transition: background 0.2s;
+  }
+  .btn-send:hover { background: var(--red-glow); }
+  .btn-send:disabled { background: #333; cursor: not-allowed; }
+
+  .error-box {
+    display: none; background: rgba(232,0,29,0.1); border: 1px solid var(--red);
+    padding: 16px 24px; color: var(--red); font-family: 'JetBrains Mono', monospace; font-size: 13px;
+  }
+  .error-box.active { display: block; }
+
+  footer {
+    position: relative; z-index: 5; text-align: center; padding: 20px;
+    border-top: 1px solid var(--border); font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--muted); letter-spacing: 2px;
+  }
+  footer span { color: var(--red); }
+
+  @media (max-width: 600px) {
+    header { padding: 20px; flex-wrap: wrap; }
+    main { padding: 20px 16px; }
+    .pit-lane, .results-panel, .chat-panel { clip-path: none; }
+    .url-row { flex-direction: column; }
+    .btn-launch { clip-path: none; }
+    .tire-corner { width: 80px; height: 80px; }
+    .tab { padding: 12px 14px; font-size: 9px; }
+    .fc-back { padding-left: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Tire corners — same SVG, CSS flipped for each corner -->
+<div class="tire-corner tire-tl"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="0" cy="0" r="110" fill="none" stroke="#1a1a1a" stroke-width="28"/>
+  <circle cx="0" cy="0" r="110" fill="none" stroke="#2a2a2a" stroke-width="4" stroke-dasharray="12 8"/>
+  <circle cx="0" cy="0" r="82" fill="none" stroke="#111" stroke-width="16"/>
+  <circle cx="0" cy="0" r="82" fill="none" stroke="#E8001D" stroke-width="2" stroke-dasharray="8 12" opacity="0.6"/>
+  <circle cx="0" cy="0" r="62" fill="#0d0d0d" stroke="#1a1a1a" stroke-width="3"/>
+  <circle cx="0" cy="0" r="22" fill="#222" stroke="#E8001D" stroke-width="2"/>
+  <circle cx="0" cy="0" r="10" fill="#E8001D"/>
+</svg></div>
+<div class="tire-corner tire-tr"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="0" cy="0" r="110" fill="none" stroke="#1a1a1a" stroke-width="28"/>
+  <circle cx="0" cy="0" r="110" fill="none" stroke="#2a2a2a" stroke-width="4" stroke-dasharray="12 8"/>
+  <circle cx="0" cy="0" r="82" fill="none" stroke="#111" stroke-width="16"/>
+  <circle cx="0" cy="0" r="82" fill="none" stroke="#E8001D" stroke-width="2" stroke-dasharray="8 12" opacity="0.6"/>
+  <circle cx="0" cy="0" r="62" fill="#0d0d0d" stroke="#1a1a1a" stroke-width="3"/>
+  <circle cx="0" cy="0" r="22" fill="#222" stroke="#E8001D" stroke-width="2"/>
+  <circle cx="0" cy="0" r="10" fill="#E8001D"/>
+</svg></div>
+<div class="tire-corner tire-bl"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="0" cy="0" r="110" fill="none" stroke="#1a1a1a" stroke-width="28"/>
+  <circle cx="0" cy="0" r="110" fill="none" stroke="#2a2a2a" stroke-width="4" stroke-dasharray="12 8"/>
+  <circle cx="0" cy="0" r="82" fill="none" stroke="#111" stroke-width="16"/>
+  <circle cx="0" cy="0" r="82" fill="none" stroke="#E8001D" stroke-width="2" stroke-dasharray="8 12" opacity="0.6"/>
+  <circle cx="0" cy="0" r="62" fill="#0d0d0d" stroke="#1a1a1a" stroke-width="3"/>
+  <circle cx="0" cy="0" r="22" fill="#222" stroke="#E8001D" stroke-width="2"/>
+  <circle cx="0" cy="0" r="10" fill="#E8001D"/>
+</svg></div>
+<div class="tire-corner tire-br"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="0" cy="0" r="110" fill="none" stroke="#1a1a1a" stroke-width="28"/>
+  <circle cx="0" cy="0" r="110" fill="none" stroke="#2a2a2a" stroke-width="4" stroke-dasharray="12 8"/>
+  <circle cx="0" cy="0" r="82" fill="none" stroke="#111" stroke-width="16"/>
+  <circle cx="0" cy="0" r="82" fill="none" stroke="#E8001D" stroke-width="2" stroke-dasharray="8 12" opacity="0.6"/>
+  <circle cx="0" cy="0" r="62" fill="#0d0d0d" stroke="#1a1a1a" stroke-width="3"/>
+  <circle cx="0" cy="0" r="22" fill="#222" stroke="#E8001D" stroke-width="2"/>
+  <circle cx="0" cy="0" r="10" fill="#E8001D"/>
+</svg></div>
+
+<header>
+  <div><div class="logo-badge">PIT STOP AI</div></div>
+  <div>
+    <div class="header-title">PIT STOP <span>AI</span></div>
+    <div class="header-sub">RACE THROUGH ANY WEBPAGE! · Powered by Groq + Llama</div>
+  </div>
+  <div class="lap-counter">
+    <div class="lap-label">Sources Analyzed</div>
+    <div class="lap-num" id="lapNum">00</div>
+  </div>
+</header>
+
+<main>
+
+  <div class="pit-lane">
+    <div class="section-label">🏁 Pit Lane — Load URL</div>
+    <div class="api-row">
+      <span class="api-label">API KEY</span>
+      <input type="password" class="api-input" id="apiKey"
+        placeholder="gsk_... (free Groq API key — get one at groq.com)" />
+    </div>
+    <div class="url-row">
+      <input type="url" class="url-input" id="urlInput"
+        placeholder="https://en.wikipedia.org/wiki/Formula_One" />
+      <button class="btn-launch" id="launchBtn" onclick="launchAnalysis()">▶ LAUNCH</button>
+    </div>
+    <div class="api-hint">
+      Free key → <a href="https://groq.com/" target="_blank">groq.com</a>
+      &nbsp;·&nbsp; Key lives in memory only, cleared when tab closes.
+    </div>
+  </div>
+
+  <div class="error-box" id="errorBox"></div>
+
+  <div class="race-overlay" id="raceOverlay">
+    <div class="track-svg-wrap">
+      <div class="track-line"></div>
+      <div class="f1-car">🏎️</div>
+    </div>
+    <div class="race-status" id="raceStatus">SCANNING PAGE DATA...</div>
+    <div class="race-url-display" id="raceUrl"></div>
+  </div>
+
+  <div class="results-panel" id="resultsPanel">
+    <div class="results-header">
+      <div class="section-label" style="margin-bottom:0">📡 Race Data</div>
+      <div class="source-badge" id="sourceBadge"></div>
+    </div>
+    <div class="results-tabs">
+      <button class="tab active" onclick="switchTab('toc')">Table of Contents</button>
+      <button class="tab" onclick="switchTab('summary')">Summary</button>
+      <button class="tab" onclick="switchTab('flashcards')">Flashcards</button>
+    </div>
+    <div class="tab-content active" id="tab-toc"></div>
+    <div class="tab-content" id="tab-summary"></div>
+    <div class="tab-content" id="tab-flashcards"></div>
+  </div>
+
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+      <div class="chat-indicator"></div>
+      Race Strategist AI — Ask Anything About This Page
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="msg-ai-wrap">
+        <div class="msg-ai-header">Pit Stop AI</div>
+        <div class="msg-ai-full visible">
+          Page loaded and analyzed. I'm ready — ask me anything, or tap a quick button below!
+        </div>
+      </div>
+    </div>
+    <div class="quick-prompts">
+      <button class="quick-btn" onclick="quickPrompt('Summarize the key points in bullet form')">📋 Key Points</button>
+      <button class="quick-btn" onclick="quickPrompt('Explain the most confusing concept on this page in simple terms')">🤔 Simplify</button>
+      <button class="quick-btn" onclick="quickPrompt('Give me a 3-sentence executive summary')">⚡ Quick Summary</button>
+      <button class="quick-btn" onclick="quickPrompt('What are the most important things to remember from this?')">🏆 Takeaways</button>
+      <button class="quick-btn" onclick="quickPrompt('Create a quiz with 5 questions based on this content')">❓ Quiz Me</button>
+    </div>
+    <div class="chat-input-row">
+      <textarea class="chat-input" id="chatInput"
+        placeholder="Ask anything... (Enter to send, Shift+Enter for new line)"
+        onkeydown="handleKey(event)"></textarea>
+      <button class="btn-send" id="sendBtn" onclick="sendChat()">SEND</button>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  Built at <span>CODE Quantum Hackathon 2026</span> · PIT STOP AI · UI via Claude AI · Logic & architecture by the dev
+</footer>
+
+<script>
+// ============================================================
+// PIT STOP AI — CODE Quantum Hackathon 2026
+// UI generated with Claude AI (Anthropic)
+// Concept, architecture, prompting, debugging: [Your Name]
+// ============================================================
+
+// ── STATE ──
+// These hold context between function calls.
+// The AI API is stateless — we re-send pageContent every chat message.
+let pageContent = '';
+let pageTitle   = '';
+let currentUrl  = '';
+let lapCount    = 0;
+
+// ── CORS PROXIES ──
+// WHY: Browsers block fetching URLs from other domains (CORS policy).
+// A proxy server fetches the page on our behalf and returns it.
+// PROBLEM ENCOUNTERED: Free proxies are unreliable and go down often.
+// SOLUTION: Chain multiple proxies, try each one until one works.
+// FUTURE FIX: Build a Node.js backend so we control the fetching.
+const CORS_PROXIES = [
+  url => `https://corsproxy.io/?url=${encodeURIComponent(url)}`,
+  url => `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`,
+  url => `https://thingproxy.freeboard.io/fetch/${url}`,
+];
+
+function showError(msg) {
+  const el = document.getElementById('errorBox');
+  el.textContent = '⚠ ' + msg;
+  el.classList.add('active');
+}
+function clearError() { document.getElementById('errorBox').classList.remove('active'); }
+function setRaceStatus(msg) { document.getElementById('raceStatus').textContent = msg; }
+
+// ── FETCH PAGE ──
+// Tries each proxy in order. Each proxy returns data in a different format:
+//   allorigins → JSON { contents: "<html>" }
+//   corsproxy / thingproxy → raw HTML text
+// We check Content-Type header to know which format we received.
+async function fetchPage(url) {
+  for (const proxyFn of CORS_PROXIES) {
+    try {
+      const proxyUrl = proxyFn(url);
+      const res = await fetch(proxyUrl, { signal: AbortSignal.timeout(12000) });
+      if (!res.ok) continue;
+      const contentType = res.headers.get('content-type') || '';
+      if (contentType.includes('application/json')) {
+        const data = await res.json();
+        if (data.contents) return data.contents;
+        if (data.body) return data.body;
+      } else {
+        const text = await res.text();
+        if (text && text.length > 100) return text;
+      }
+    } catch (e) {
+      console.warn('Proxy failed, trying next:', e);
+    }
+  }
+  throw new Error('Could not fetch the page. Make sure the URL is public and try again.');
+}
+
+// ── EXTRACT TEXT ──
+// DOMParser turns raw HTML string into a real DOM we can query.
+// We strip noise elements then grab innerText — just the readable words.
+// KNOWN LIMITATION: JS-rendered sites (React/Angular SPAs) show empty
+// because their content is injected after page load, not in raw HTML.
+// Truncated to 3000 chars to stay under Groq's free-tier token limits.
+function extractText(html) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+  doc.querySelectorAll('script,style,nav,footer,header,iframe,noscript,svg').forEach(el => el.remove());
+  const title = doc.title || 'Unknown Page';
+  const body  = doc.body ? doc.body.innerText : '';
+  return { title, text: body.replace(/\s+/g, ' ').trim().slice(0, 1500) };
+}
+
+// ── CALL AI ──
+// Uses Groq's OpenAI-compatible API with Llama 3.3 70B.
+// WHY GROQ: Free tier, no credit card, fast inference.
+// RATE LIMIT ISSUE: Free tier = 12,000 tokens/minute.
+//   Firing 3 requests simultaneously blew the limit every time.
+//   FIX: Sequential calls with 3s delays (see launchAnalysis).
+//   FIX 2: Reduced page content from 12,000 → 3,000 chars.
+//   FIX 3: Retry with backoff if 429 still happens.
+// Add 'model' as a parameter, defaulting to the fast one
+async function callAI(systemPrompt, userPrompt, model = 'llama-3.1-8b-instant', retries = 3) {
+  const apiKey = document.getElementById('apiKey').value.trim();
+  if (!apiKey) throw new Error('Please enter your Groq API key.');
+
+  for (let i = 0; i < retries; i++) {
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({
+        model: model, // Use the passed-in model
+        max_tokens: 800,
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user',   content: userPrompt   }
+        ]
+      })
+    });
+
+    const data = await res.json();
+
+    if (res.status === 429) {
+      const wait = (i + 1) * 2000; // Shorter wait for the faster model
+      setRaceStatus(`⏳ Rate limit — retrying in ${wait / 1000}s...`);
+      await new Promise(r => setTimeout(r, wait));
+      continue;
+    }
+
+    if (!res.ok) throw new Error(data.error?.message || `API error ${res.status}`);
+    return data.choices?.[0]?.message?.content || '';
+  }
+  throw new Error('Rate limit kept hitting — wait 30 seconds.');
+}
+
+// ── MAIN FLOW ──
+// 1. Validate inputs
+// 2. Fetch URL through CORS proxy
+// 3. Extract readable text
+// 4. 3 sequential AI calls (TOC, Summary, Flashcards) with 3s gaps
+// 5. Parse JSON responses defensively (AI sometimes adds markdown fences)
+// 6. Render results into tabs
+async function launchAnalysis() {
+  clearError();
+  const url    = document.getElementById('urlInput').value.trim();
+  const apiKey = document.getElementById('apiKey').value.trim();
+
+  if (!url)    return showError('Enter a URL to analyze.');
+  if (!url.startsWith('http')) return showError('URL must start with http:// or https://');
+  if (!apiKey) return showError('Enter your Groq API key first.');
+
+  currentUrl = url;
+  document.getElementById('launchBtn').disabled = true;
+  document.getElementById('raceOverlay').classList.add('active');
+  document.getElementById('resultsPanel').classList.remove('active');
+  document.getElementById('chatPanel').classList.remove('active');
+  document.getElementById('raceUrl').textContent = url;
+
+  try {
+    setRaceStatus('📡 SCANNING PAGE DATA...');
+    const html = await fetchPage(url);
+
+    setRaceStatus('⚙️ PROCESSING TELEMETRY...');
+    const { title, text } = extractText(html);
+    pageContent = text;
+    pageTitle   = title;
+
+    if (!text || text.length < 100)
+      throw new Error('Page content too short. Try a Wikipedia article.');
+
+    const sys = `You are a research assistant. Analyze the text and return a SINGLE JSON object. 
+    Use ONLY these HTML tags for the summary string: <strong>, <ul>, <li>, <p>, <h3>. 
+    Page: "${pageTitle}"`;
+
+    setRaceStatus('🤖 GENERATING ALL-IN-ONE DATA...');
+    
+    // Combine all 3 requests into one prompt
+    const combinedRaw = await callAI(sys,
+      `Analyze this content and return ONLY a valid JSON object. No markdown. No code fences. No explanation. Raw JSON only.
+
+      Required structure — follow it exactly:
+      {
+        "toc": [
+          {"title":"Section Name","description":"One sentence about this section"}
+        ],
+        "summary": "<p>Overview sentence.</p><h3>Theme One</h3><ul><li>Point</li></ul>",
+        "flashcards": [
+          {"question":"What is X?","answer":"X is Y."},
+          {"question":"What is Z?","answer":"Z is W."}
+        ]
+      }
+
+      Rules:
+      - flashcards must be an array of objects with exactly the keys "question" and "answer"
+      - every question must end with a ?
+      - every answer must be 1-2 sentences max
+      - minimum 5 flashcards, maximum 8
+      - summary must be a single HTML string, not an object
+      - do not add any text outside the JSON object
+
+      Content: ${text}`
+    );
+
+    // Clean and parse the response
+    let data;
+    try {
+      const cleanJson = combinedRaw.replace(/```json|```/g, '').trim();
+      data = JSON.parse(cleanJson);
+    } catch (e) {
+      throw new Error("Failed to parse AI response. Try launching again.");
+    }
+
+    // ── Render TOC ──
+    const tocItems = data.toc || [];
+    document.getElementById('tab-toc').innerHTML =
+      '<div class="ai-content">' +
+      tocItems.map((item, i) => `
+        <div class="toc-item" onclick="askAbout('${item.title.replace(/'/g, "\\'")}')">
+          <span class="toc-num">${String(i + 1).padStart(2, '0')}</span>
+          <span class="toc-text">
+            ${item.title}
+            ${item.description ? `<br><small style="color:var(--muted);font-weight:400">${item.description}</small>` : ''}
+          </span>
+          <span class="toc-arrow">→ Ask AI</span>
+        </div>`
+      ).join('') + '</div>';
+
+    // ── Render Summary ──
+    document.getElementById('tab-summary').innerHTML =
+      `<div class="ai-content">${data.summary || "No summary generated."}</div>`;
+
+    // ── Render Flashcards ──
+// ── Render Flashcards ──
+    const cards = data.flashcards || [];
+    const fcEl = document.getElementById('tab-flashcards');
+    
+    if (cards.length) {
+      fcEl.innerHTML = `
+        <p style="font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-bottom:20px;letter-spacing:2px">
+          ${cards.length} ANALYSIS FLASHCARDS
+        </p>
+        <div class="flashcard-list">
+          ${cards.map((c, i) => `
+            <div class="fc-item">
+              <div class="fc-num">CARD ${String(i + 1).padStart(2, '0')}</div>
+              
+              <div class="fc-section">
+                <div class="fc-label">FRONT</div>
+                <div class="fc-info">${c.question}</div>
+              </div>
+
+              <div class="fc-section">
+                <div class="fc-label">BACK</div>
+                <div class="fc-info">${c.answer}</div>
+              </div>
+            </div>
+          `).join('')}
+        </div>`;
+    } else {
+      fcEl.innerHTML = '<div class="ai-content"><p>No flashcards generated.</p></div>';
+    }
+
+    // ── Finalize ──
+    document.getElementById('sourceBadge').textContent = url.replace(/https?:\/\//, '').slice(0, 55);
+    lapCount++;
+    document.getElementById('lapNum').textContent = String(lapCount).padStart(2, '0');
+    document.getElementById('raceOverlay').classList.remove('active');
+    document.getElementById('resultsPanel').classList.add('active');
+    document.getElementById('chatPanel').classList.add('active');
+
+    addAIMessage(`Analysis complete! Data for "<strong>${pageTitle}</strong>" is ready.`);
+
+  } catch (err) {
+    document.getElementById('raceOverlay').classList.remove('active');
+    showError(err.message);
+  }
+  document.getElementById('launchBtn').disabled = false;
+}
+
+// ── FLASHCARD TOGGLE ──
+// Toggles visibility of the answer section for card at index.
+function toggleAnswer(index) {
+  const back  = document.getElementById(`fc-back-${index}`);
+  const btn   = document.getElementById(`fc-btn-${index}`);
+  const open  = back.classList.toggle('visible');
+  btn.textContent = open ? 'Hide Answer' : 'Show Answer';
+  btn.classList.toggle('revealed', open);
+}
+
+function switchTab(name) {
+  const names = ['toc', 'summary', 'flashcards'];
+  document.querySelectorAll('.tab').forEach((t, i) =>
+    t.classList.toggle('active', names[i] === name));
+  document.querySelectorAll('.tab-content').forEach(c =>
+    c.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+}
+
+function askAbout(topic) {
+  document.getElementById('chatInput').value = `Tell me more about "${topic}"`;
+  sendChat();
+  document.getElementById('chatPanel').scrollIntoView({ behavior: 'smooth' });
+}
+
+function quickPrompt(text) {
+  document.getElementById('chatInput').value = text;
+  sendChat();
+}
+
+// ── ADD USER MESSAGE ──
+function addUserMessage(text) {
+  const msgs = document.getElementById('chatMessages');
+  const wrap = document.createElement('div');
+  wrap.className = 'msg-user-wrap';
+  wrap.innerHTML = `<div class="msg-user">${text}</div>`;
+  msgs.appendChild(wrap);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+// ── ADD AI MESSAGE ──
+// isQuiz = true  → shows all questions upfront, hides answers behind "Show Answers"
+//                   Used only when the user clicks the "Quiz Me" quick button.
+// isQuiz = false → shows the full response immediately (default for all other messages)
+function addAIMessage(html, isQuiz = false) {
+  const msgs = document.getElementById('chatMessages');
+  const id   = 'ai-' + Date.now();
+
+  const wrap = document.createElement('div');
+  wrap.className = 'msg-ai-wrap';
+
+  if (isQuiz) {
+    // Quiz mode: show questions, hide answers section behind a button.
+    // We split the response at the first answer marker (Q1/Q2 etc or "Answer").
+    // Simpler approach: show everything but blur/hide from a divider line.
+    // We ask the AI to put answers after "--- ANSWERS ---" so we can split cleanly.
+    const parts = html.split(/---\s*ANSWERS?\s*---/i);
+    const questions = parts[0] || html;
+    const answers   = parts[1] || '';
+
+    wrap.innerHTML = `
+      <div class="msg-ai-header">Pit Stop AI — Quiz</div>
+      <div class="msg-ai-full visible">${questions}</div>
+      ${answers ? `
+        <div id="quiz-ans-${id}" style="display:none" class="msg-ai-full">${answers}</div>
+        <div style="padding:12px 0">
+          <button class="btn-show-answer" onclick="
+            document.getElementById('quiz-ans-${id}').style.display='block';
+            this.style.display='none';
+          ">🏁 Show Answers</button>
+        </div>
+      ` : `
+        <div style="padding:12px 0">
+          <button class="btn-show-answer" onclick="this.style.display='none';
+            this.nextElementSibling.style.display='block'">🏁 Show Answers</button>
+          <div style="display:none" class="msg-ai-full">${html}</div>
+        </div>
+      `}
+    `;
+  } else {
+    // Normal mode: show full response immediately
+    wrap.innerHTML = `
+      <div class="msg-ai-header">Pit Stop AI</div>
+      <div class="msg-ai-full visible">${html}</div>
+    `;
+  }
+
+  msgs.appendChild(wrap);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function addTyping() {
+  const msgs = document.getElementById('chatMessages');
+  const div  = document.createElement('div');
+  div.className = 'msg-typing';
+  div.id = 'typingIndicator';
+  div.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+function removeTyping() { document.getElementById('typingIndicator')?.remove(); }
+
+// ── SEND CHAT ──
+// Detects if the message is a Quiz Me request.
+// If so: tells the AI to format with "--- ANSWERS ---" separator so we
+// can split questions from answers and hide the answers behind a button.
+// All other messages show the full response immediately.
+// KNOWN LIMITATION: No conversation history — each message is independent.
+async function sendChat() {
+  const input  = document.getElementById('chatInput');
+  const msg    = input.value.trim();
+  if (!msg || !pageContent) return;
+
+  // Detect quiz mode — used to split questions/answers in the response
+  const isQuiz = msg.toLowerCase().includes('quiz');
+
+  input.value = '';
+  document.getElementById('sendBtn').disabled = true;
+  addUserMessage(msg);
+  addTyping();
+
+  try {
+    const sys = `You are Pit Stop AI, a sharp F1-themed research assistant. You've read a webpage and help users understand it. Be concise. Use simple HTML (<strong>, <ul>, <li>, <p>) for formatting.\n\nPage: "${pageTitle}"\nURL: ${currentUrl}\n\nContent:\n${pageContent}`;
+
+    // For quiz requests, instruct the AI to put all answers after a separator
+    const userPrompt = isQuiz
+      ? msg + `\n\nIMPORTANT: - Format questions using <ul><li>...</li></ul>- Put "--- ANSWERS ---" inside its own <p>- Format answers using <ul><li>...</li></ul>- Use proper HTML spacing (no inline text blobs)
+      ` : msg;
+
+    const reply = await callAI(sys, userPrompt);
+    removeTyping();
+    addAIMessage(reply, isQuiz);
+  } catch (err) {
+    removeTyping();
+    addAIMessage(`⚠ Error: ${err.message}`);
+  }
+
+  document.getElementById('sendBtn').disabled = false;
+  document.getElementById('chatMessages').scrollTop = 99999;
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendChat();
+  }
+}
+</script>
+</body>
+</html>
