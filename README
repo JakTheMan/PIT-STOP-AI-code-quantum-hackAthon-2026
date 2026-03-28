@@ -1,0 +1,121 @@
+# 🏎️ PIT STOP AI
+### Race Through Any Webpage
+
+> Paste a URL. Let the AI pit crew do the work.
+
+Built at **CODE Quantum Hackathon 2026** · F1 Red Theme · Powered by Groq + Llama 3
+
+---
+
+## 🚀 What It Does
+
+1. **Paste any public URL** — articles, docs, cybersecurity updates, Wikipedia, anything
+2. **Watch the F1 race animation** while the AI analyzes the page
+3. **Get instant structured output:**
+   - 📋 **Table of Contents** — click any section to ask the AI about it
+   - 📝 **Summary** — structured overview with key themes
+   - 🃏 **Flashcards** — FRONT/BACK study cards, both sides visible
+4. **Chat with the AI** about anything on the page
+   - Quick buttons: Key Points, Flashcards, Quick Summary, Takeaways
+   - **Quiz Me** — shows questions first, answers hidden behind "🏁 Show Answers"
+
+---
+
+## ⚡ Quick Start
+
+**No install needed.** Just open `index.html` in your browser.
+
+1. Get a **free** API key at [console.groq.com](https://console.groq.com/keys) — no credit card required
+2. Open `index.html` (or use VS Code → Live Server for auto-reload)
+3. Paste your Groq API key into the gold field
+4. Paste any public URL and hit **▶ LAUNCH**
+
+> Your API key stays in memory only — never stored anywhere. Closing or refreshing the tab clears it completely.
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Tech | Why |
+|---|---|---|
+| Frontend | Vanilla HTML/CSS/JS | Zero dependencies, runs anywhere, no build step |
+| AI — Analysis | Llama 3.3 70B via Groq | High reasoning for structured data extraction |
+| AI — Chat | Llama 3.1 8B Instant via Groq | 3-5x higher throughput for fast interactive Q&A |
+| Inference | Groq LPU (Language Processing Unit) | Near-zero latency — fits the F1 "no lag" speed theme |
+| Page Fetching | CORS Proxy chain | Bypasses browser CORS restrictions for arbitrary URLs |
+| Text Extraction | Browser DOMParser | Native HTML parsing, no library needed |
+
+**Single file. No build step. No backend. No npm. Just open and go.**
+
+---
+
+## 🏁 Features
+
+- 🎨 F1 racing aesthetic — carbon fiber background, Ferrari red accents, tire corners
+- 🏎️ Custom gas nozzle cursor (red → neon gold on hover → F1 car on click)
+- 🏎️ Animated F1 car loading screen during page analysis
+- 🃏 FRONT/BACK flashcards — both sides always visible for studying
+- ❓ Quiz Me mode — questions shown first, answers revealed on demand
+- 💬 AI chat with full page context
+- ⚡ Quick-action buttons for common study tasks
+- 📱 Responsive — works on mobile
+
+---
+
+## 🔑 Why the API Key is Needed
+
+The API key is like the key to the F1 car — without it the engine won't start. It does three things:
+
+1. **Verifies you're not malicious** — prevents bots from flooding Groq's servers
+2. **Tracks usage** — Groq monitors your token quota even on the free tier
+3. **Identifies your account** — ties the session to your specific settings
+
+The key is grabbed directly from the input field right before each API call and placed in the `Authorization` header. It's never written to `localStorage`, never logged, and never sent anywhere except `api.groq.com`. Close the tab and it's gone.
+
+---
+
+## 🌐 Known Limitations
+
+- Some sites block CORS proxies — try a different URL if it fails (Wikipedia always works)
+- JavaScript-rendered sites (React/Angular apps) may return empty content — their text is injected after page load, which CORS proxies can't capture
+- Groq free tier has token limits — very large pages may hit rate limits
+- No conversation history — the AI doesn't remember previous messages in the chat
+
+---
+
+## 📁 File Structure
+
+```
+pitstop-ai/
+├── index.html    ← the entire app (single file)
+├── README.md     ← this file
+```
+
+---
+
+## 🔮 Future Plans
+
+This repository is a skeleton. The long-term goal is a version where:
+
+- **No API key needed** — a backend server will hold the key server-side so
+  anyone can use it without signing up for anything
+- **No data saved** — sessions stay stateless by design, nothing written to a
+  database or localStorage. You're still responsible for taking your own notes —
+  thats intentional, it keeps you accountable for what you learned!
+- **JS-rendered pages supported** — a headless browser (Puppeteer) on the
+  backend will handle React/Angular sites that CORS proxies can't read
+- **PDF upload** — drag and drop a paper or textbook chapter
+- **Conversation history** — AI remembers previous messages in the same session  maybe make a login but no email will be need and ill put "avoid using your username and password" for the sake of databreaches not affecting ur data
+
+The current version requires a Groq API key because the browser calls the AI
+directly. The future version flips that — the server calls the AI, users just
+use the app.
+
+## 📜 License
+
+MIT — use it, fork it, RACE with it!
+
+---
+
+*Built with LUV and way too much caffeine at CODE Quantum Hackathon 2026*
+*UI generated with Claude AI + Gemini · Architecture & decisions by the dev*
